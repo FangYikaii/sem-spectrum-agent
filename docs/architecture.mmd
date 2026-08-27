@@ -1,0 +1,22 @@
+flowchart TB
+    U[FA / 工艺 / 显微工程师] --> W[专家 Web 工作台<br/>Case、画布、谱学、审核]
+    U --> H[Agent 宿主<br/>Open WebUI、Pi、DSH、Manus]
+    H --> A[宿主适配器<br/>MCP Client / Function / Extension]
+    W --> G[API 网关与身份认证]
+    A --> G
+    G --> O[Case 编排器<br/>计划、状态机、审批、审计]
+    O --> P[策略执行点<br/>RBAC、ABAC、风险分级、许可]
+    O --> Q[任务队列 / GPU Worker]
+    P --> R[插件注册表<br/>Manifest、签名、版本、模型卡]
+    Q --> C1[数据接入插件<br/>文件、S3、LIMS、MES]
+    Q --> C2[SEM 图像插件<br/>校准、配准、分割、异常检测]
+    Q --> C3[EDS/EELS 插件<br/>读入、背景、峰拟合、定量]
+    Q --> C4[知识与报告插件<br/>SOP、相似案例、受控生成]
+    Q --> C5[仪器连接器<br/>只读状态、经审批采集]
+    C1 --> D[(资产与工件对象存储<br/>原始不可变、派生可追溯)]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    C5 --> I[厂商 SEM/EDS API<br/>或受控边缘网关]
+    O --> M[(PostgreSQL<br/>Case、元数据、审计、标注)]
+    C4 --> V[(检索索引<br/>SOP、模型卡、已批准案例)]

@@ -1,0 +1,35 @@
+# Python and Node build artifacts
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+dist/
+build/
+
+# Local runtime and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# Sensitive manufacturing data and generated outputs
+data/
+raw-data/
+artifacts/
+models/
+*.pt
+*.pth
+*.onnx
+*.tif
+*.tiff
+*.dm3
+*.dm4
+*.msa
+*.emsa
+
+# OS and editor files
+.DS_Store
+.vscode/
+.idea/

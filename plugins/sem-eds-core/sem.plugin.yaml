@@ -1,0 +1,52 @@
+apiVersion: semispectra.io/v1alpha1
+kind: SemPlugin
+metadata:
+  id: com.semispectra.eds-core
+  name: EDS Core Analysis
+  version: 0.1.0
+  vendor: SemiSpectra Labs
+  license: Apache-2.0
+  maturity: experimental
+spec:
+  type: analysis
+  runtime:
+    kind: oci
+    image: ghcr.io/example/sem-eds-core:0.1.0
+    entrypoint: sem_eds_core.server:mcp
+  capabilities:
+    mcp:
+      tools:
+        - spectra.validate_eds
+        - spectra.fit_eds
+        - spectra.quantify_eds
+      resources:
+        - semispectra://calibration/{instrument_id}
+    ui:
+      panels:
+        - spectra-fit-inspector
+  contracts:
+    inputs:
+      - application/vnd.emsa.msa
+      - application/vnd.eds.spectrum+json
+    outputs:
+      - application/vnd.semispectra.peakfit+json
+      - application/vnd.semispectra.quantification+json
+  permissions:
+    data:
+      read:
+        - case_asset
+        - calibration
+      write:
+        - derived_artifact
+        - analysis_result
+    network:
+      egress: none
+    compute:
+      gpu: false
+  quality:
+    requiresCalibration: true
+    emitsUncertainty: true
+    testDataset: semispectra://registry/fixtures/eds-core-v1
+  provenance:
+    sbom: sbom.spdx.json
+    signature: cosign://sha256:REPLACE_AT_RELEASE
