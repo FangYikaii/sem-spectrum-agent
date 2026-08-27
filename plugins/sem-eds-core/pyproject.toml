@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sem-eds-core"
+version = "0.1.0"
+description = "Auditable screening-grade SEM-EDS spectrum validation and peak fitting plugin."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "SemiSpectra Labs"}]
+dependencies = [
+  "fastapi>=0.110,<1.0",
+  "numpy>=1.26,<3.0",
+  "pydantic>=2.0,<3.0",
+  "uvicorn[standard]>=0.27,<1.0"
+]
+
+[project.optional-dependencies]
+mcp = ["fastmcp>=2.0,<3.0"]
+dev = ["httpx>=0.27,<1.0", "pytest>=8.0,<9.0"]
+
+[project.scripts]
+sem-eds-core-api = "sem_eds_core.__main__:main"
+sem-eds-core-mcp = "sem_eds_core.mcp:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"

@@ -28,6 +28,7 @@ models/
 *.dm4
 *.msa
 *.emsa
+!plugins/sem-eds-core/examples/*.emsa
 
 # OS and editor files
 .DS_Store

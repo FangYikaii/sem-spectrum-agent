@@ -11,14 +11,16 @@ spec:
   type: analysis
   runtime:
     kind: oci
-    image: ghcr.io/example/sem-eds-core:0.1.0
-    entrypoint: sem_eds_core.server:mcp
+    image: sem-eds-core:0.1.0
+    entrypoint: sem_eds_core.server:app
   capabilities:
     mcp:
       tools:
+        - spectra.parse_emsa
         - spectra.validate_eds
         - spectra.fit_eds
         - spectra.quantify_eds
+        - spectra.line_catalog
       resources:
         - semispectra://calibration/{instrument_id}
     ui:
